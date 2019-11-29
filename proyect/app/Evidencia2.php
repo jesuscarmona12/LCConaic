@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Evidencia extends Model
 {
     protected $table='evidencias';
-    protected $fillable =['nombre_archivo','tipo_archivo', 'tipo_mod', 'archivo_bin', 'archivo_mod'];
+    protected $fillable =['nombre_archivo','tipo_archivo','archivo_bin'];
     public $timestamps = false;
 
     /**

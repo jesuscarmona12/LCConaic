@@ -144,6 +144,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <p>Editar Perfil </p>
                 </a>
               </li>
+
+              <br>
+            
+               <li class="nav-item">
+              <form action="{{ route('logout') }}" method="POST" >
+                        @csrf
+                        <button class="dropdown-item" style="color:white !important;">Cerrar sesión</button>
+                    </form>
+                      </li>
             
           </li>
          

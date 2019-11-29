@@ -24,6 +24,8 @@ Route::get('admin',function(){
 
 });
 
+Route::get('psf', 'ReportController@generar')->middleware('auth');
+
 
 //======================================RUTAS PARA EL CRUD DE CATEGORIAS========================================================
 Route::resource('categorias','ControladorCategorias');

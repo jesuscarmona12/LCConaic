@@ -35,7 +35,7 @@
                     @endif
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf
-                        <button class="dropdown-item">Cerrar sesión</button>
+                        <button class="dropdown-item" >Cerrar sesión</button>
                     </form>
                 </div>
             </li>

@@ -23,16 +23,15 @@
 	</style>
 </head>
 <body>
-@foreach($reportes AS $r)
 	<?php
-		if($r->tipo_archivo != 'pdf'){
+		if($evidencia->tipo_archivo != 'pdf'){
 	?>
-		<img class="center-embed" src="{{public_path().$r->archivo_bin}}">
+		<div align="center">
+			<img src="{{public_path().$evidencia->archivo_bin}}" style="max-width: 100%; width: auto; height: auto;">
+		</div>
 	<?php
-
 		}
 	?>
-@endforeach
 <!--
 	<table>
 		<tr>
