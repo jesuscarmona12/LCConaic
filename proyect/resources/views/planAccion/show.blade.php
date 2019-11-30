@@ -154,59 +154,88 @@
     </div> --}}
 <div class="container">
     <title> {{$plan->nombre}} </title>
-    <div class="row text-center">
-        <div class="col-lg-12 col-md-12">
-            <h1>Plan de acción: {{$plan->nombre}}</h1>
-            <h6><i> Recomendación: {{$plan->categoria->nombre}} </i><h6>
-        </div>
-         @if (auth()->user()->privilegio == 1) 
-        <a style="float:right; color:white !important;" class="btn btn-success btn-md" href="{{ route('plan.reporte', $plan->id) }}">
-            <span class="fa fa-download"></span> 
-            Generar reporte
-        </a>
-        <br><br>
-    @endif 
-    </div>
 
-   
-    <hr>
-    <br><br>
-    <div class="row">
-        <div class="col-lg-12 col-md-12">
-            <h3>Descripción</h3>
-            <p class="descripcion-texto">{{$plan->descripcion}}</p>
-        </div>
-    </div>
-    @if ($plan->criterio != null)
-        <hr>
-        <div class="row">
-            <div class="col-lg-12 col-md-12">
-                <h3>Criterio de hecho</h3>
-                <p class="descripcion-texto">{{$plan->criterio}}</p>
-            </div>
-        </div>
-    @else 
-        <hr>
-        <div class="row">
-            <div class="col-lg-12 col-md-12">
-              
-                
-            </div>
-        </div>
-    @endif
-    
-    
-    <br>
-    <hr>
-    <div class="row text-center">
-        <div class="col-lg-12 col-md-12">
-            <h4>Evidencias registradas:</h4>
-        </div>
+         
     </div>
 
     
         
-    @if($plan->evidencias->count() > 0)
+    
+
+
+
+
+
+
+     <div class="invoice p-3 mb-3">
+              <!-- title row -->
+              <div class="row">
+                <div class="col-12">
+                  <h4>
+                    <i class="fas fa-globe"></i> Plan de acción: {{$plan->nombre}}
+                    @if (auth()->user()->privilegio == 1) 
+
+        <!--
+        <a style="float:right; color:white !important;" class="btn btn-success btn-md" href="{{ route('plan.reporte', $plan->id) }}">
+            <span class="fa fa-download"></span> 
+            Generar reporte
+        </a>
+    -->
+
+
+                <a style="float:right; color:white !important;" class="btn btn-success btn-md" href="{{ route('reporte.plan', $plan->id) }}">
+                    <span class="fa fa-download"></span>
+                    Generar reporte
+                </a>
+                <br><br>
+            @endif 
+                    
+                  </h4>
+
+
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- info row -->
+              <div class="row invoice-info">
+                <div class="col-sm-4 invoice-col">
+                  
+                  <address>
+                    <strong> Recomendación: </strong>
+                    {{$plan->categoria->nombre}} 
+                    
+                    
+                  </address>
+                </div>
+                <!-- /.col -->
+               
+                <!-- /.col -->
+                <div class="col-sm-4 invoice-col">
+                    <address>
+                 <strong>Descripción: </strong>
+                    {{$plan->descripcion}}
+                </address>
+                </div>
+
+                 <div class="col-sm-4 invoice-col">
+                    <address>
+                 <strong>Observación </strong>
+                    {{$plan->criterio}}
+                </address>
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
+              <hr>
+              
+                <div class="row text-center">
+        <div class="col-lg-12 col-md-12">
+            <h4>Evidencias registradas:</h4>
+            <br>
+        </div>
+    </div>
+
+             @if($plan->evidencias->count() > 0)
         <div class="row" >
             {{-- @php $evidencias = $plan->evidencias; @endphp --}}
             @foreach($plan->evidencias as $evidencia)
@@ -221,12 +250,14 @@
                         @endif                        
                         
                         <div class="card-body">
-                            <h6 class="card-title">
+                            <h6 class="card-title" >
                                 <a href="/evidencias/{{$evidencia->id}}"><p style="text-align: center; color:black;">{{$evidencia->nombre_archivo}}</p></a>
+
                             </h6>
+
                             @if (auth()->user()->id == $plan->recomendacion->categoria->academico_id)
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                              
+                                    <div class="col-lg-10 col-md-10 col-sm-10">
                                         <form action="{{ route('evidencias.destroy', $evidencia->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
@@ -236,15 +267,19 @@
                                                 Eliminar
                                             </button>
                                         </form>
+                                        <br>
                                     </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6">
+
+
+
+                                    <div class="col-lg-10 col-md-10 col-sm-9">
                                         <a style="float:right; color:white !important;" class="btn btn-primary btn-sm btn-block" href="{{route('evidencias.edit', $evidencia->id)}}">
                                             <span class="fa fa-edit"></span>
                                             Editar
                                         </a>
                                         
                                     </div>
-                                </div>
+                                
                             @endif
                         </div>
                     </div>
@@ -263,12 +298,35 @@
         </div>
     
     @endif
+    <hr>
 
     @if(auth()->user()->id == $plan->recomendacion->categoria->academico_id)        
         <a href="{{route('evidencias.create', ['id' => $plan->id])}}" class="btn" style="float:right; color:white !important; background-color: grey; border-color: black">Crear nueva evidencia</a>
     @endif
+
     <div style="height: 100px"></div>
         <p class="lead mb-0"></p>
     </div>
+
+    
+
+    <div style="height: 100px"></div>
+        <p class="lead mb-0"></p>
+    </div>
+
+
+
+
+
+
+
+
 </div>
+
+
+
+
+
+
+
 @endsection

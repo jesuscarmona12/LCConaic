@@ -70,12 +70,7 @@
               <div class="card-header border-0">
                 <h3 class="card-title">Lista de áreas</h3>
                 <div class="card-tools">
-                  <a href="#" class="btn btn-tool btn-sm">
-                    <i class="fas fa-download"></i>
-                  </a>
-                  <a href="#" class="btn btn-tool btn-sm">
-                    <i class="fas fa-bars"></i>
-                  </a>
+                  
                 </div>
               </div>
               <div class="card-body table-responsive p-0">
@@ -91,51 +86,57 @@
                   <tbody>
                   
         @foreach ($categorias as $categoria)
-            <tr>
-                <td><a style="color:black !important;" href="{{route('categorias.show',$categoria->id)}}">{{$categoria->nombre}}</a></td>
+
+                <tr>
+                
+                    <td><a style="color:blue !important;" href="{{route('categorias.show',$categoria->id)}}">{{$categoria->nombre}}</a></td>
                 <td style="height:10px;"><p class="descripcion-texto">{{$categoria->descripcion}}</p></td>
-                <td>
-                    <div class="container">
-                        <br>
-                        <div class="row">                                
-                        
-                            <div class="col-lg-6 text-center">
-                                <form action="{{ route('categorias.destroy',$categoria->id) }}" method="POST">
+                    <td style="width:150px">
+                        <div class="d-flex">
+                            <div class="col-lg-6 col-md-6 flex-fill">
+                                <form style="margin: 0px;" action="{{ route('categorias.destroy',$categoria->id) }}"  method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm"
-                                                onclick="return confirm('Quiere borrar la categoria: {{ $categoria->nombre }}?')" >
-                                                Borrar <span class="fa fa-trash"></span>
+                                    <center>
+                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Quiere borrar la categoria: {{ $categoria->nombre }}?')" >
+                                            <span class="fa fa-trash"></span>
+                                        Eliminar
                                     </button>
+                                    </center>
                                 </form>
                             </div>
-
-                            <div class="col-lg-6 text-center">
-                                <a style="color:white !important;" class="btn btn-info btn-sm" href="/categorias/{{$categoria->id}}/edit">Editar <span class="fa fa-pencil"></span></a> 
-                            </div>
+                            <div class="col-lg-6 col-md-6 flex-fill">
+                                <center>
+                                <a type="button" style="color:white !important;" class="btn btn-info btn-sm" href="/categorias/{{$categoria->id}}/edit">
+                                        <span class="fa fa-edit"></span>
+                                    Editar
+                                </a>
+                                </center>
+                            </div>                            
                         </div>
-                    </div>
-                </td>
-            </tr>
+                    </td>
+                </tr>
+
+
+
+
         @endforeach
+
+        
                   </tbody>
                 </table>
+
               </div>
+
+
             </div>
-  <form action="/categorias/create">
-        {{-- <button type="submit" style="float: right; background-color:grey" class="btn pretty-btn"  type="submit" value="">Crear categoría</button> --}}
-        <input style="float: right; background-color:grey; color:white" class="btn pretty-btn"  type="submit" value="Crear categoría" />
-    </form><br>     
-    <div style="height: 100px"></div>
-
-
-
+     
+            <form action="/categorias/create">
+        {{-- <button type="submit" style="float:right; background-color:grey" class="btn pretty-btn"  type="submit" value="">Crear categoría</button> --}}
+        <input style="float:right; background-color:grey; color:white" class="btn pretty-btn"  type="submit" value="Crear categoría" />
+    </form><br>  
 
 </div> 
-
-
-
-
  
 
 @stop

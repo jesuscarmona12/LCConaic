@@ -24,8 +24,6 @@ Route::get('admin',function(){
 
 });
 
-Route::get('psf', 'ReportController@generar')->middleware('auth');
-
 
 //======================================RUTAS PARA EL CRUD DE CATEGORIAS========================================================
 Route::resource('categorias','ControladorCategorias');
@@ -64,4 +62,4 @@ Route::get('recomendacionesAdministrador', 'vistasController@recomendacionesAdmi
 //=====================BORRAR RECOMENDACION PARA PANEL DE ADMINISTRADOR=====================================================
 Route::delete('borrarRecomendacion/{id}','ControladorRecomendaciones@destroy2')->name('recomendacion.destroy2');
 
-Route::get('pdf', 'ReportController@generar');
+Route::get('psf', 'ReportController@generar')->name('reporte.plan')->middleware('auth');
