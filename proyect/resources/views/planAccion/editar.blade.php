@@ -9,14 +9,15 @@
 
 <div >
     <title> Editar plan de acción </title>
-    <h2 style="text-align:center;margin-top:20px;"> {{$plan->nombre}} </h2>
+    <h2 style="text-align:center;margin-top:20px;">Plan: {{$plan->nombre}} </h2>
     <hr>
+    <center>
     <form method="POST" action="{{route('plan.update',$plan->id)}}">
         @csrf
         @method("put")
         <div class="form-group" {{ $errors->has('nombrePlan') ? 'has-error' : ''}}>
         <label for="exampleInputEmail1" style="font-size: 24px;">Nombre</label>
-            <input type="text" class="form-control"  name='nombrePlan' value="{{$plan->nombre}}" placeholder="Escriba el nombre para el plan de acción">
+            <input type="text" style="width : 500px; heigth : 500px;" class="form-control"  name='nombrePlan' value="{{$plan->nombre}}" placeholder="Escriba el nombre para el plan de acción">
             {!! $errors->first('nombrePlan','<span class="help-block" style="color:red;">:message</span>')!!}
         </div>
         <div class="form-group" {{ $errors->has('descripcionPlan') ? 'has-error' : ''}}>
@@ -93,5 +94,6 @@
           print_month.value = jsCalendar.tools.dateToString(date, 'MONTH YYYY', 'es');
         });
       </script>
+  </center>
 </div>
 @endsection

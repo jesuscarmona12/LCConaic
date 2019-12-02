@@ -1,139 +1,36 @@
 <!DOCTYPE html>
-@extends('auth.layouts.app')
 
-@section('content')
-    <style>
-        :root {
-        --input-padding-x: 1.5rem;
-        --input-padding-y: .75rem;
-        }
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ 
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-       
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/adminlte/plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="/adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/adminlte/dist/css/adminlte.min.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
 
-        .card-signin {
-        border: 0;
-        border-radius: 1rem;
-        box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-        }
+ 
+<body class="hold-transition login-page">
+<div class="login-box">
+  <div class="login-logo">
+     <img src="adminlte/img/logo.png">
+  </div>
+  <!-- /.login-logo -->
+  <div class="card">
+    <div class="card-body login-card-body">
 
-        .card-signin .card-title {
-        margin-bottom: 2rem;
-        font-weight: 300;
-        font-size: 1.5rem;
-        }
-
-        .card-signin .card-img-left {
-        width: 45%;
-        /* Link to your background image using in the property below! */
-        background: scroll center url('/Imagenes/logo_unison.png');
-        background-size: contain;
-        background-repeat: no-repeat;
-        }
-
-        .card-signin .card-body {
-        padding: 2rem;
-        }
-
-        .form-signin {
-        width: 100%;
-        }
-
-        .form-signin .btn {
-        font-size: 80%;
-        border-radius: 5rem;
-        letter-spacing: .1rem;
-        font-weight: bold;
-        padding: 1rem;
-        transition: all 0.2s;
-        }
-
-        .form-label-group {
-        position: relative;
-        margin-bottom: 1rem;
-        }
-
-        .form-label-group input {
-        height: auto;
-        border-radius: 2rem;
-        }
-
-        .form-label-group>input,
-        .form-label-group>label {
-        padding: var(--input-padding-y) var(--input-padding-x);
-        }
-
-        .form-label-group>label {
-        position: absolute;
-        top: 0;
-        left: 0;
-        display: block;
-        width: 100%;
-        margin-bottom: 0;
-        /* Override default `<label>` margin */
-        line-height: 1.5;
-        color: #495057;
-        border: 1px solid transparent;
-        border-radius: .25rem;
-        transition: all .1s ease-in-out;
-        }
-
-        .form-label-group input::-webkit-input-placeholder {
-        color: transparent;
-        }
-
-        .form-label-group input:-ms-input-placeholder {
-        color: transparent;
-        }
-
-        .form-label-group input::-ms-input-placeholder {
-        color: transparent;
-        }
-
-        .form-label-group input::-moz-placeholder {
-        color: transparent;
-        }
-
-        .form-label-group input::placeholder {
-        color: transparent;
-        }
-
-        .form-label-group input:not(:placeholder-shown) {
-        padding-top: calc(var(--input-padding-y) + var(--input-padding-y) * (2 / 3));
-        padding-bottom: calc(var(--input-padding-y) / 3);
-        }
-
-        .form-label-group input:not(:placeholder-shown)~label {
-        padding-top: calc(var(--input-padding-y) / 3);
-        padding-bottom: calc(var(--input-padding-y) / 3);
-        font-size: 12px;
-        color: #777;
-        }
-
-        .btn-google {
-        color: white;
-        background-color: #ea4335;
-        }
-
-        .btn-facebook {
-        color: white;
-        background-color: #3b5998;
-        }
-
-        .background-style {
-            background-color:hsl(192, 100%, 75%,0.8);
-        }
-    </style>
-    <title> Iniciar sesión </title>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-10 col-xl-9 mx-auto">
-                <div class="card card-signin flex-row my-5">
-                    <div class="card-img-left d-none d-md-flex">
-                        <!-- Background image for card set in CSS! -->
-                    </div>
-                    <div class="card-body">
-                        @if (Session::has('message'))
+        @if (Session::has('message'))
                             <div class="alert alert-warning">{{ Session::get('message') }}</div>
                         @endif
                         @if ($errors->any())
@@ -143,28 +40,62 @@
                                 @endforeach
                             </div> 
                         @endif
-                        <h5 class="card-title text-center">Acceder</h5>
-                        <form method="POST" action="{{ route('login') }}">
-                            @csrf
-                
-                            <div class="form-label-group">
-                                <input type="email" id="inputEmail" class="form-control" name="email" placeholder="Ingresar email" value="{{ old('email') }}" required>
-                                <label for="inputEmail">Correo Electrónico</label>
-                            </div>
-                            
-                            <hr>
-                
-                            <div class="form-label-group">
-                                <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Ingresar contraseña" required>
-                                <label for="inputPassword">Contraseña</label>
-                            </div>
-                
-                            <button class="btn btn-lg btn-primary btn-block" type="submit">{{ __('Iniciar sesión') }}</button>
-                            <a class="d-block text-center mt-2 small" href="register">{{ __('Regístrate.') }}</a>
-                        </form>
-                    </div>
-                </div>
+      <p class="login-box-msg">Ingresa tus datos para iniciar sesión.</p>
+
+       <form method="POST" action="{{ route('login') }}">
+        @csrf
+        <div class="input-group mb-3">
+            <input type="email" id="inputEmail" class="form-control" name="email" placeholder="Ingresar email" value="{{ old('email') }}" required>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-envelope"></span>
             </div>
+          </div>
         </div>
+
+             
+
+        <div class="input-group mb-3">
+          <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Ingresar contraseña" required>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-8">
+           
+          </div>
+          <!-- /.col -->
+          <div class="col-4">
+            <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+
+      
+      <!-- /.social-auth-links -->
+
+      <p class="mb-1">
+        <a href="forgot-password.html">Olvidé mi contraseña</a>
+      </p>
+      <p class="mb-0">
+        <a href="register" class="text-center">Registrar un nuevo usuario</a>
+      </p>
     </div>
-@endsection
+    <!-- /.login-card-body -->
+  </div>
+</div>
+<!-- /.login-box -->
+
+<!-- jQuery -->
+<script src="/adminlte/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/adminlte/dist/js/adminlte.min.js"></script>
+
+</body>
+</html>    

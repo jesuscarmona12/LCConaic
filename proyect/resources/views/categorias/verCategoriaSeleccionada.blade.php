@@ -82,7 +82,7 @@
                 <div class="panel-heading"><h3 class="panel-title">No hay recomendaciones asignadas para esta categoría. </h3>
                 </div>
             @endif
-            @if (auth()->user()->privilegio == 1) 
+            @if (auth()->user()->privilegio == 1 ) 
                 <div class="row">
                     <div class="col-lg-4 col-md-3">        
                     </div>
@@ -96,11 +96,11 @@
         </div>
 
 
-
         <div style="height: 100px"></div>
             <p class="lead mb-0"></p>
         </div>
     </div> --}}
+
 
 
     
@@ -112,6 +112,16 @@
                   <h4>
                     <i class="fas fa-globe"></i> Área: {{$categoria->nombre}}
                     
+
+         @if (auth()->user()->privilegio == 1 || auth()->user()->id == $categoria->academico_id ) 
+
+                     <div class="col-12">
+                <a style="float:right; color:white !important;" class="btn btn-success btn-md" href="{{ route('reporte.area', $categoria->id) }}">
+                    <span class="fa fa-download"></span>
+                    Generar reporte
+                    @endif
+                </a>
+                </div>
                   </h4>
                 </div>
                 <!-- /.col -->
@@ -169,13 +179,31 @@
                                 <td><a href="{{route('recomendacion.show',$recomendacion->id)}}">{{$recomendacion->nombre}}</a></td>
                                 <td>{{$recomendacion->descripcion}}</td>
                                 @if (auth()->user()->id == $categoria->academico_id)
-                                    <td>
+                                    <td style="width:200px">
+                                     
+                                        
                                         <center>
                                         <form action="{{ route('plan.create')}}">
                                             <input type='hidden' value='{{$recomendacion->id}}' name='rec_id'/><br>
-                                            <input type='submit' class="btn btn-secondary" value='Agregar plan de acción'/>
-                                        </form>                                        
+                                            <input type='submit' class="btn btn-info btn-sm" value='Agregar plan de acción'/>
+                                        </form>    
+                                    
                                         </center>
+                                 
+                                        
+                                   
+                                        <center>
+                                        <form action="{{route('recomendacion.show',$recomendacion->id)}}">
+                                           <br>
+                                            <input type='submit' class="btn btn-info btn-sm" value='Ver recomendación'/>
+                                        </form>    
+   
+
+                                        </center>
+                                    
+
+                                        
+                                    
                                     </td>
                                 @endif
                             <tr>        
@@ -245,12 +273,12 @@
             @endif
         </div>
     </div>
-    @if (auth()->user()->privilegio == 1) 
+    @if (auth()->user()->privilegio == 1 || auth()->user()->id == $categoria->academico_id ) 
         <div class="row">
             <div class="col-lg-4 col-md-3">        
             </div>
             <div style="text-align:center" class="col-lg-4 col-md-3">
-                <form action="/recomendacion/create/{{$categoria->id}}" style="position:relative; top:50%;">
+                <form action="/recomendacion/create/{{$categoria->id}}/{{auth()->user()->id }}" style="position:relative; top:50%;">
                     <input type="submit" class="btn btn-primary" value="Agregar recomendación" />
                 </form>                                   
             </div>

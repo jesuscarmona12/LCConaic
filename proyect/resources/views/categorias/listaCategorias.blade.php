@@ -93,6 +93,16 @@
                 <td style="height:10px;"><p class="descripcion-texto">{{$categoria->descripcion}}</p></td>
                     <td style="width:150px">
                         <div class="d-flex">
+
+                            <div class="col-lg-8 col-md-8 flex-fill">
+                                <center>
+                                <a type="button" style="color:white ;" class="btn btn-info btn-sm" href="{{route('categorias.show',$categoria->id)}}">
+                                          
+                                    Ver área
+                                </a>
+                                </center>
+                            </div> 
+
                             <div class="col-lg-6 col-md-6 flex-fill">
                                 <form style="margin: 0px;" action="{{ route('categorias.destroy',$categoria->id) }}"  method="POST">
                                     @csrf
@@ -105,6 +115,7 @@
                                     </center>
                                 </form>
                             </div>
+
                             <div class="col-lg-6 col-md-6 flex-fill">
                                 <center>
                                 <a type="button" style="color:white !important;" class="btn btn-info btn-sm" href="/categorias/{{$categoria->id}}/edit">
@@ -112,7 +123,8 @@
                                     Editar
                                 </a>
                                 </center>
-                            </div>                            
+                            </div>   
+                                                       
                         </div>
                     </td>
                 </tr>

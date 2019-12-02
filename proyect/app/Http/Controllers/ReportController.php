@@ -6,32 +6,61 @@ use LynX39\LaraPdfMerger\Facades\PdfMerger;
 use Illuminate\Http\Request;
 use App\Evidencia;
 use PDF;
+use App\PlanAccion;
+use App\Categoria;
+use App\Recomendacion;
 
 class ReportController extends Controller{
-
-		
-	
-	public function generar(){
+	public function generar($id){
 		$this->middleware('auth');
-		//$reportes = \DB::table('evidencias')->select(['id', 'nombre_archivo', 'tipo_archivo', 'archivo_bin'])->get();
 
-		/*
-		$view = \View::make('reporte', compact('reportes'))->render();
-		$pdf = \App::make('dompdf.wrapper');
-		$pdf->loadHTML($view);
-		$output = $pdf->output();
-		file_put_contents('filename.pdf', $output);
-		return $pdf->stream('informe'.'.pdf');
-		*/
-		//$reportes = Evidencia::all();
-		$reportes = \DB::table('evidencias')->select(['archivo_mod'])->get();
+		$plan = PlanAccion::findOrFail($id);
 		$pdf = PDFMerger::init();
-		foreach ($reportes as $rep) {
-			//dd($rep->archivo_mod);
+		$info = PDF::loadView('reporte', ['plan'=>$plan]);
+		$output = $info->output();
+        file_put_contents(public_path().'/pdf/portadas/'.$plan->nombre .= ".pdf", $output);
+        $pdf->addPDF(public_path().'/pdf/portadas/'.$plan->nombre, 'all');
+
+		foreach ($plan->evidencias as $rep) {
 			$pdf->addPDF(public_path().$rep->archivo_mod, 'all');
 		}
+
 		$pdf->merge();
-		$pdf->save(public_path()."/reportes/file_name.pdf", "browser");
+		$file = public_path()."/reportes/planes/".$plan->nombre;
+		$pdf->save($file, "file");
+		$pdf->save($plan->nombre, "browser");
 	}
 
+	public function ReporteArea($id){
+		$categoria = Categoria::findOrFail($id);
+		$recomendacion = Recomendacion::where('categoria_id', $id)->get();
+		$pdf = PDFMerger::init();
+		$info = PDF::loadView('reporteArea', ['categoria'=>$categoria]);
+		$output = $info->output();
+        file_put_contents(public_path().'/pdf/portadas/areas/'.$categoria->nombre .= ".pdf", $output);
+        $pdf->addPDF(public_path().'/pdf/portadas/areas/'.$categoria->nombre, 'all');
+
+		foreach ($recomendacion as $rec) {
+			$info = PDF::loadView('portadaRecomendacion', ['recomendacion'=>$rec]);
+			$output = $info->output();
+		    file_put_contents(public_path().'/pdf/portadas/recomendaciones/'.$rec->nombre .= ".pdf", $output);
+		    $pdf->addPDF(public_path().'/pdf/portadas/recomendaciones/'.$rec->nombre, 'all');
+			$idRecomendacion = $rec->id;
+			$planes = PlanAccion::where('recomendacion_id',$idRecomendacion)->get();
+			foreach ($planes as $plan) {
+				$info = PDF::loadView('reporte', ['plan'=>$plan]);
+				$output = $info->output();
+		        file_put_contents(public_path().'/pdf/portadas/'.$plan->nombre .= ".pdf", $output);
+		        $pdf->addPDF(public_path().'/pdf/portadas/'.$plan->nombre, 'all');
+
+				foreach ($plan->evidencias as $rep) {
+					$pdf->addPDF(public_path().$rep->archivo_mod, 'all');
+				}
+			}
+		}
+		$pdf->merge();
+		$file = public_path()."/reportes/areas/".$categoria->nombre.'.pdf';
+		$pdf->save($file, "file");
+		$pdf->save($categoria->nombre, "browser");
+	}
 }

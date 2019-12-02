@@ -18,35 +18,52 @@
         <br>
         <hr>
 
-        <br>
 
-        @if (count($planes)>0)
-            <table class="table table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col">Plan</th>
-                        <th scope="col">Estado</th>
-                        <th scope="col">Fecha</th>
-                        @if($recomendacion->categoria->academico_id == auth()->user()->id)
-                            <th scope="col">Acciones</th>
-                        @endif
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($planes as $plan)
-                        <tr>
-                            <td><a  href="/plan/{{$plan->id}}" >{{$plan->nombre}}</a></td>
-                            @if ( $plan->completado == 1)
+
+
+
+        <div class="card" align="center">
+              <div class="card-header border-0">
+                <h3 class="card-title">Lista de planes</h3>
+                <div class="card-tools">
+                  
+                </div>
+              </div>
+              <div class="card-body table-responsive p-0">
+                <table class="table table-striped table-valign-middle">
+                  <thead>
+                  <tr>
+
+                    <th scope="col">Plan</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Fecha</th>
+                    @if($recomendacion->categoria->academico_id == auth()->user()->id)
+                        <th scope="col">Acciones</th>
+                    @endif
+                    
+                  </tr>
+                  </thead>
+                  <tbody>
+                  
+        @foreach ($planes as $plan)
+
+                <tr>
+                
+                    <td><a style="color:blue !important;" href="/plan/{{$plan->id}}">{{$plan->nombre}}</a></td>
+
+                @if ( $plan->completado == 1)
                                 <td>Completado.</td>
                             @else
                                 <td>En progreso.</td>
-                            @endif                            
-                            <td>{{$plan->fecha_termino}}</td>
-                            @if($recomendacion->categoria->academico_id == auth()->user()->id)
-                            <td>
-                                <div class="container">
-                                    <br>
-                                    <div class="row">                                                                
+                            @endif</p>
+
+                    <td>{{$plan->fecha_termino}}</td>
+                    <td style="width:150px">
+                        <div class="d-flex">
+
+                           
+
+                             <div class="d-flex">                                                               
                                         <div class="col-sm-6 text-center">
                                             <form action="{{ route('plan.destroy',$plan->id) }}" method="POST">
                                                 @csrf
@@ -61,18 +78,37 @@
                                             <a style="color:white !important;" class="btn btn-info btn-sm" href="/plan/{{$plan->id}}/edit">Editar <span class="fa fa-pencil"></span></a> 
                                         </div>
                                     </div>
-                                </div>
-                            </td>
-                            @endif
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        @else
-            <p>No hay planes para esta recommendación.</p>
-        @endif
 
-        <br>
+
+
+                                                       
+                        </div>
+                    </td>
+                </tr>
+
+
+
+
+        @endforeach
+
+        
+                  </tbody>
+                </table>
+
+              </div>
+
+
+            </div>
+
+
+
+
+
+
+
+
+
+
 
         @if (auth()->user()->privilegio == 1) 
             <div class="row">

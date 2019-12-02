@@ -170,14 +170,14 @@
      <div class="invoice p-3 mb-3">
               <!-- title row -->
               <div class="row">
-                <div class="col-12">
+                 <div class="col-12">
                   <h4>
                     <i class="fas fa-globe"></i> Plan de acción: {{$plan->nombre}}
-                    @if (auth()->user()->privilegio == 1) 
+                    {{--@if (auth()->user()->privilegio == 1)--}}
 
         <!--
         <a style="float:right; color:white !important;" class="btn btn-success btn-md" href="{{ route('plan.reporte', $plan->id) }}">
-            <span class="fa fa-download"></span> 
+            <span class="fa fa-download"></span>
             Generar reporte
         </a>
     -->
@@ -188,8 +188,8 @@
                     Generar reporte
                 </a>
                 <br><br>
-            @endif 
-                    
+            {{--@endif--}}
+
                   </h4>
 
 

@@ -94,6 +94,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+
+               @if (auth()->user()->privilegio == 1)
           <li class="nav-item ">
             <a href="/categorias" class="nav-link ">
               <i class="far fa-circle nav-icon"></i>
@@ -109,17 +111,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <p>Usuarios</p>
                 </a>
               </li>
+              
+
+                <li class="nav-item">
+                  
+                <a href="{{ route('notificacion.reporte') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Notificaciones (Admin) </p>
+                </a>
+              </li>
+              @endif
               <li class="nav-item">
                 <a href="{{ route('academico.editPerfil', auth()->user()->id) }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Editar Perfil </p>
-                </a>
-              </li>
-
-                <li class="nav-item">
-                <a href="notificacion/lista" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Notificaciones (Admin) </p>
                 </a>
               </li>
 

@@ -52,7 +52,7 @@
             </thead>
         @foreach ($notif as $notificacion)
             <tr>
-                <td><a style="color:black !important;" href="{{route('categorias.show',$notificacion->id)}}">{{$notificacion->nombre}}</a></td>
+                <td><a style="color:black !important;" >{{$notificacion->nombre}}</a></td>
                 <td style="height:10px;"><p class="descripcion-texto">{{$notificacion->descripcion}}</p></td>
                 <td>
                     <div class="container">

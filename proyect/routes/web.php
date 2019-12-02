@@ -27,7 +27,7 @@ Route::get('admin',function(){
 
 //======================================RUTAS PARA EL CRUD DE CATEGORIAS========================================================
 Route::resource('categorias','ControladorCategorias');
-Route::resource('notificaciones','ControladorNotificaciones');
+Route::resource('notificaciones','ControladorNotificaciones')->middleware('auth');
 //======================================RUTAS PARA EL CRUD DE PLAN DE ACCION========================================================
 Route::resource('plan','ControladorPlanDeAccion')->middleware('auth');
 //==============================================================================================================================
@@ -40,7 +40,7 @@ Route::resource('evidencias','ControladorEvidencias')->middleware('auth');
 Route::resource('academicos','ControladorAcademicos')->middleware('admin');
 
 //========================================================================================================================
-Route::get('recomendacion/create/{idCategoria}','ControladorRecomendaciones@create')->name('recomendacion.create2')->middleware('admin');
+Route::get('recomendacion/create/{idCategoria}/{ida}','ControladorRecomendaciones@create')->name('recomendacion.create2')->middleware('auth');
 
 Route::post('recomendacion/create/{idCategoria}','ControladorRecomendaciones@store')->name('recomendacion.store2');
 
@@ -62,4 +62,6 @@ Route::get('recomendacionesAdministrador', 'vistasController@recomendacionesAdmi
 //=====================BORRAR RECOMENDACION PARA PANEL DE ADMINISTRADOR=====================================================
 Route::delete('borrarRecomendacion/{id}','ControladorRecomendaciones@destroy2')->name('recomendacion.destroy2');
 
-Route::get('psf', 'ReportController@generar')->name('reporte.plan')->middleware('auth');
+Route::get('Reporte/{id}', 'ReportController@generar')->name('reporte.plan')->middleware('auth');
+
+Route::get('ReporteArea/{id}', 'ReportController@ReporteArea')->name('reporte.area')->middleware('auth');

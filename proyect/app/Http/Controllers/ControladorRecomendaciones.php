@@ -17,7 +17,8 @@ class ControladorRecomendaciones extends Controller
 
     public function __construct(){
         $this->middleware('auth');
-        $this->middleware('admin',['except'=>'show' ]);
+       $this->middleware('admin', ['except' => ['show', 'create','store']]);
+
     }
 
     /**
@@ -35,10 +36,16 @@ class ControladorRecomendaciones extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($idCategoria)
-    {
+    public function create($idCategoria,$ida)
+    {  
+        
+
         $categoria = Categoria::findOrFail($idCategoria);
+        if($categoria->academico_id == $ida){
         return view('recomendaciones.create',compact('categoria'));
+    }
+    
+        
     }
 
     /**
