@@ -47,6 +47,7 @@
                 <tr>
                     <th style="min-width: 1%;">Nombre</th>
                     <th>Descripción</th>
+                    <th>Fecha</th>
                     <th style="width: 14%;">Acciones</th>
                 </tr>
             </thead>
@@ -54,6 +55,7 @@
             <tr>
                 <td><a style="color:black !important;" >{{$notificacion->nombre}}</a></td>
                 <td style="height:10px;"><p class="descripcion-texto">{{$notificacion->descripcion}}</p></td>
+                <td style="height:10px;"><p class="descripcion-texto">{{$notificacion->fecha}}</p></td>
                 <td>
                     <div class="container">
                         <br>

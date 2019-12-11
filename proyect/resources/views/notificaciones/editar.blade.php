@@ -22,23 +22,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <form method="POST" action="{{ route('categorias.update',$notif->id)}}">
-        @csrf
-        @method("put")
-        <div class="form-group" {{ $errors->has('nombreCategoria') ? 'has-error' : ''}}>
-          <label for="exampleInputEmail1">Nombre</label>
-          <input type="text" class="form-control"  name='nombreCategoria' value="{{$notif->nombre}}" placeholder="Escriba el nombre para la categoria">
-          {!! $errors->first('nombreCategoria','<span class="help-block" style="color:red;">:message</span>')!!}
-        </div>
-        <div class="form-group" {{ $errors->has('descripcionCategoria') ? 'has-error' : ''}}>
-          <label for="exampleInputPassword1">Descripción</label>
-          <textarea rows="4" cols="50"  name='descripcionCategoria'>{{$notif->descripcion}}</textarea>
-          {!! $errors->first('descripcionCategoria','<span class="help-block" style="color:red;">:message</span>')!!}
-        </div>
-       
-        <button type="submit" class="btn btn-primary">Crear categoría</button>
-      </form>
-      
+    
       
 </body>
 </html> --}}
@@ -64,6 +48,9 @@
                   <textarea rows="4" cols="50" class="form-control" name='descripcionCategoria'>{{$notif->descripcion}}</textarea>
                   {!! $errors->first('descripcionCategoria','<span class="help-block" style="color:red;">:message</span>')!!}
                 </div>
+
+                
+              <hr>
                
                
                     

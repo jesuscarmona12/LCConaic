@@ -43,8 +43,9 @@ class ControladorPlanDeAccion extends Controller
         //falta mandar la categoria para manejarla en la vista
         //Se agrego parametro $id_recomendacion.
         $rec = $_REQUEST['rec_id'];
+        $rec2 = $_REQUEST['rec_idc'];
         $nombre_recomendacion = Recomendacion::findOrFail($rec)->nombre;
-        return view('planAccion.crearPlanAccion', compact('rec', 'nombre_recomendacion'));
+        return view('planAccion.crearPlanAccion', compact('rec', 'nombre_recomendacion','rec2'));
     }
 
     /**
@@ -61,10 +62,11 @@ class ControladorPlanDeAccion extends Controller
             'descripcionPlan'=> 'required|min:20|regex:/^[a-zA-Z][\s\S]*/',
             'fecha_termino' => 'required',
         ));
-
+          $rec2 = $_REQUEST['rec_idc'];
         if($credentials){
             $plan = new PlanAccion();
-            $idCategoria= Auth::user()->categoria->id;
+
+            $idCategoria= $rec2;
             $categoria = Categoria::findOrFail($idCategoria);
             $plan->nombre = $request->input("nombrePlan");
             $plan->descripcion = $request->input("descripcionPlan");
@@ -123,10 +125,11 @@ class ControladorPlanDeAccion extends Controller
             'fecha_termino' => 'required',
             'completado' => 'required',
         ));
+         $rec2 = $_REQUEST['rec_idc'];
         
         if($credentials){
             $plan = PlanAccion::findOrFail($id);
-            $idCategoria= Auth::user()->categoria->id;
+            $idCategoria= $rec2;
             $categoria = Categoria::findOrFail($idCategoria);
             
             $plan->nombre = $request->input("nombrePlan");

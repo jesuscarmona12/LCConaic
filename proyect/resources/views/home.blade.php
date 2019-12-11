@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 @extends('admin.layout')
-@section('content')  
+@section('content')
     <!-- Page Content -->
     <title> Inicio </title>
     <div class="container">
@@ -12,34 +12,36 @@
                     <div class="card-header border-0">
                 <h3 class="card-title">Lista de áreas</h3>
                 <div class="card-tools">
-                  
+
                 </div>
               </div>
                     <!-- Page Heading -->
-                  
+
 
                     {{-- Hacemos un for loop para designar que sólo la primera carta sea del tamaño de dos columnas --}}
+                     @foreach ($categorias as $categoria)
 
-                        @if ($academico->categoria->academico_id)
-                       
+                        @if ($academico->id == $categoria->academico_id)
+
 
                                       <div class="card card-primary card-outline" style="text-align: center; opacity:1;">
                       <div class="card-header">
-                        <h5 class="m-0">Área de responsbilidad: {{$academico->categoria->nombre}}</h5>
+                        <h5 class="m-0">Área de responsbilidad: {{$categoria->nombre}}</h5>
                       </div>
                       <div class="card-body">
-                        <p class="card-text">{{$academico->categoria->descripcion}}</p>
+                        <p class="card-text">{{$categoria->descripcion}}</p>
                         <a href="categorias/{{$academico->categoria->id}}" class="btn btn-primary">Ver más</a>
                       </div>
                     </div>
-                                
-                                @endif
-                   
 
-                          
+                                @endif
+                                @endforeach
+
+
+
                         @foreach ($categorias as $categoria)
-                            @if ($academico->categoria != $categoria)
-                    
+                            @if ($academico->id != $categoria->academico_id)
+
 
                                       <div class="card card-primary card-outline" style="text-align: center; opacity:1;">
                       <div class="card-header">
@@ -47,15 +49,26 @@
                       </div>
                       <div class="card-body">
                         <p class="card-text">{{$categoria->descripcion}}</p>
-                        <a href="categorias/{{$categoria->id}}" class="btn btn-primary">Ver más</a>
+                        <?php
+                                if($categoria->academico_id == NULL){
+                                ?>
+                                    <h6 style="color:blue;">Sin asignar</h6>
+                                <?php
+                                }
+                                else{
+                                ?>
+                                    <a href="categorias/{{$categoria->id}}" class="btn btn-primary">Ver más</a>
+                                <?php
+                                }
+                        ?>
                       </div>
                     </div>
-                          
+
                             @endif
 
 
-                        @endforeach   
-                    
+                        @endforeach
+
                     <!-- /.row -->
 
 

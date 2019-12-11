@@ -8,7 +8,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-    
+
 
   <title>LCConaic</title>
 
@@ -16,7 +16,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <!-- pace-progress -->
   <link rel="stylesheet" href="/adminlte/plugins/pace-progress/themes/black/pace-theme-flat-top.css">
- 
+
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="/adminlte/plugins/fontawesome-free/css/all.min.css">
@@ -42,18 +42,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <a href="/" class="nav-link">Inicio</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="{{route('categorias.show', auth()->user()->categoria->id)}}" class="nav-link">Área de responsabilidad</a>
+        <a href="{{ route('categoria.lista') }}" class="nav-link">Área(s) de responsabilidad</a>
       </li>
     </ul>
 
     <!-- SEARCH FORM -->
 
-    
+
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Messages Dropdown Menu -->
-      
+
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item ">
         <a class="nav-link" href="/notificaciones">
@@ -61,9 +61,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <span class="brand-text font-weight-light">Notificaciones</span>
           <span class="badge badge-warning navbar-badge"></span>
         </a>
-       
+
       </li>
-     
+
     </ul>
   </nav>
   <!-- /.navbar -->
@@ -100,21 +100,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <a href="/categorias" class="nav-link ">
               <i class="far fa-circle nav-icon"></i>
               <p>
-                Áreas
-               
+                Áreas (Admin)
+
               </p>
             </a>
-            
+
               <li class="nav-item">
                 <a href="/academicos" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Usuarios</p>
                 </a>
               </li>
-              
+
 
                 <li class="nav-item">
-                  
+
                 <a href="{{ route('notificacion.reporte') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Notificaciones (Admin) </p>
@@ -129,16 +129,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
 
               <br>
-            
+
                <li class="nav-item">
               <form action="{{ route('logout') }}" method="POST" >
                         @csrf
                         <button class="dropdown-item" style="color:white !important;">Cerrar sesión</button>
                     </form>
                       </li>
-            
+
           </li>
-         
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -149,12 +149,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-   
+
     <!-- /.content-header -->
 
     <!-- Main content -->
     @yield('content')
-    
+
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 @extends('admin.layout')
-@section('content')  
+@section('content')
     <!-- Page Content -->
     <title> Inicio </title>
     <div class="container">
@@ -15,11 +15,11 @@
 
                     {{-- Hacemos un for loop para designar que sólo la primera carta sea del tamaño de dos columnas --}}
                     <div class="row">
-                      
-                      
-                          
+
+
+
                         @foreach ($notif as $categoria)
-                       
+
                                 <div class="col-lg-12 col-md-12" style="padding-bottom: 10px">
                                     <div class="card h-100" style="background-color: transparent">
                                         <div class="card-body">
@@ -27,13 +27,20 @@
                                                 <h4 style="text-align:center; color:black">{{$categoria->nombre}}</h4>
                                             </h4>
                                             <p class="descripcion-texto" style="text-align: center;">{{$categoria->descripcion}}</p>
-                                            
+                                            <br>
+                                            <p class="descripcion-texto" style="text-align: center;">{{$categoria->fecha}}</p>
+
+                                            @if ( $categoria->fecha == NULL)
+                                            <p class="descripcion-texto" style="text-align: center;">Sin fecha asignada </p>
+
+                                            @endif
+
                                         </div>
                                     </div>
                                 </div>
-                          
-                         
-                        @endforeach   
+
+
+                        @endforeach
                     </div>
                     <!-- /.row -->
 

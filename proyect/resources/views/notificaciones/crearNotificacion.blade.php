@@ -59,7 +59,7 @@
 </body>
 </html> --}}
 <!DOCTYPE html>
-@extends('layouts.app')
+@extends('admin.layout')
 @section('content')
       <!-- Page Content -->
     <title> Crear notificación </title>
@@ -78,6 +78,16 @@
                 <textarea rows="4" class='form-control' cols="50" name='descripcionCategoria'></textarea>
                 {!! $errors->first('descripcionCategoria','<span class="help-block" style="color:red;">:message</span>')!!}
               </div>
+
+              <div>
+                <h4>Fecha </h4>
+     
+
+            <?php $fcha = date("Y-m-d");?>
+
+          <input type="date" class="form-control" id="fecha" name="fecha" value="<?php echo $fcha;?>" >
+              </div>
+              <hr>
               
              
               <button type="submit" class="btn pretty-btn" style="float: left; background-color:green; color:white">Crear notificación</button>

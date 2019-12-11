@@ -36,19 +36,20 @@
 	</style>
 </head>
 <body>
-        <div style="margin-top: 5%;">
-            <center>
-                <img src="Imagenes/logo_lcc.jpg">
-            </center>
-        </div>
-		<div style="margin-top: 5%;">
-            <h1 style="text-align:center"> Reporte del Área: {{$categoria->nombre}} </h1>
-        </div>
-        <div style="margin-top: 10%;">
-            <h3 style="text-align:center">Descripción: {{ $categoria->descripcion }}</h3>
-    	</div>
-        <div style="margin-top: 10%;">
-            <h3 style="text-align:center">Encargado: {{auth()->user()->nombre}}</h3>
-        </div>
+
+    <div style="margin-top: 5%;">
+        <center>
+            <img src="Imagenes/logo_lcc.jpg">
+        </center>
+    </div>
+	<div style="margin-top: 5%;">
+        <h1 style="text-align:center"> Reporte del Área: {{$categoria->nombre}} </h1>
+    </div>
+    <div style="margin-top: 10%;">
+        <h3 style="text-align:center">Descripción: {{ $categoria->descripcion }}</h3>
+	</div>
+    <div style="margin-top: 10%;">
+        <h3 style="text-align:center">Encargado: {{$academico->nombre}}</h3>
+    </div>
 </body>
 </html>

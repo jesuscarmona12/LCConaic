@@ -13,7 +13,9 @@
   <h2 style="margin-top:20px;"> Agregar plan de acción </h2>
   <h6>Recomendación: <i>{{$nombre_recomendacion}}</i></h6>
   <hr>
+
   <form method="POST" action="{{route('plan.store')}}">
+    <input type='hidden' value='{{$rec2}}' name='rec_idc'/><br>
       @csrf
       <div class="form-group" {{ $errors->has('nombrePlan') ? 'has-error' : ''}}>
         <label for="exampleInputEmail1" style="font-size: 24px;">Nombre</label>
@@ -29,13 +31,11 @@
       </div>
 
       
-      <!-- My calendar element -->
-      <h2>Fecha de terminación</h2>
-      <div id="my-calendar" class="jsCalendar" data-month-format="month YYYY" data-language="es"></div>
+    
 
       <!-- Outputs -->
-      <h4>Fecha escogida</h4>
-      <input id="my-input-a" name="fecha_termino"><br>
+      <h4>Fecha de termino</h4>
+      <input type="date" id="fecha_termino" name="fecha_termino"><br>
  
       {!! $errors->first('fecha_termino','<span class="help-block" style="color:red;">:message</span>')!!}      
 
@@ -58,7 +58,7 @@
 
       // When the user clicks on a date
       calendar.onDateClick(function(event, date){
-        print_date.value = jsCalendar.tools.dateToString(date, 'DD MONTH YYYY', 'es');
+        print_date.value = jsCalendar.tools.dateToString(date, 'YYYY-MONTH-DD','es');
         console.log(calendar._elements);
       });
 

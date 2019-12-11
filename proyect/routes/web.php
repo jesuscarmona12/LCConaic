@@ -54,6 +54,7 @@ Route::get('plan/{plan}/reporte', 'ControladorPlanDeAccion@planReporte')->name('
 Route::get('recomendacion/{recomendacion}/reporte', 'ControladorRecomendaciones@recomendacionReporte')->name('recomendacion.reporte')->middleware('auth');
 //========================================================================================================================
 Route::get('categoria/{categoria}/reporte', 'ControladorCategorias@categoriaReporte')->name('categoria.reporte')->middleware('auth');
+Route::get('categoria/lista', 'ControladorCategorias@listas')->name('categoria.lista')->middleware('auth');
 Route::get('notificacion/lista', 'ControladorNotificaciones@lista')->name('notificacion.reporte')->middleware('auth');
 //========================================================================================================================
 Route::get('panelAdministrador', 'vistasController@panelAdmin')->name('admin.home');
@@ -64,4 +65,4 @@ Route::delete('borrarRecomendacion/{id}','ControladorRecomendaciones@destroy2')-
 
 Route::get('Reporte/{id}', 'ReportController@generar')->name('reporte.plan')->middleware('auth');
 
-Route::get('ReporteArea/{id}', 'ReportController@ReporteArea')->name('reporte.area')->middleware('auth');
+Route::post('ReporteArea/{id}', 'ReportController@ReporteArea')->name('reporte.area')->middleware('auth');

@@ -173,7 +173,7 @@
                  <div class="col-12">
                   <h4>
                     <i class="fas fa-globe"></i> Plan de acción: {{$plan->nombre}}
-                    {{--@if (auth()->user()->privilegio == 1)--}}
+                     @if (auth()->user()->privilegio == 1  ) 
 
         <!--
         <a style="float:right; color:white !important;" class="btn btn-success btn-md" href="{{ route('plan.reporte', $plan->id) }}">
@@ -188,7 +188,7 @@
                     Generar reporte
                 </a>
                 <br><br>
-            {{--@endif--}}
+            @endif
 
                   </h4>
 
@@ -300,7 +300,7 @@
     @endif
     <hr>
 
-    @if(auth()->user()->id == $plan->recomendacion->categoria->academico_id)        
+    @if(auth()->user()->id == $plan->recomendacion->categoria->academico_id || auth()->user()->privilegio == 1)        
         <a href="{{route('evidencias.create', ['id' => $plan->id])}}" class="btn" style="float:right; color:white !important; background-color: grey; border-color: black">Crear nueva evidencia</a>
     @endif
 

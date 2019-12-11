@@ -37,7 +37,8 @@
                     <th scope="col">Plan</th>
                     <th scope="col">Estado</th>
                     <th scope="col">Fecha</th>
-                    @if($recomendacion->categoria->academico_id == auth()->user()->id)
+                     @if (auth()->user()->privilegio == 1) 
+                    
                         <th scope="col">Acciones</th>
                     @endif
                     
@@ -58,6 +59,7 @@
                             @endif</p>
 
                     <td>{{$plan->fecha_termino}}</td>
+                      @if (auth()->user()->privilegio == 1) 
                     <td style="width:150px">
                         <div class="d-flex">
 
@@ -84,6 +86,7 @@
                                                        
                         </div>
                     </td>
+                    @endif
                 </tr>
 
 
@@ -129,9 +132,10 @@
             </div>
         @endif
         @if(auth()->user()->categoria != null)
-            @if(auth()->user()->categoria->id == $recomendacion->categoria->id)
+            @if(auth()->user()->categoria->id == $recomendacion->categoria->id || auth()->user()->privilegio == 1)
                 <center>
                     <form action="{{ route('plan.create')}}">
+                        <input type='hidden' value='{{$recomendacion->categoria->id}}' name='rec_idc'/><br>
                             <input type='hidden' value='{{$recomendacion->id}}' name='rec_id'/><br>
                             <input type='submit' class="btn btn-secondary" value='Agregar plan de acción'/>
                     </form>

@@ -13,6 +13,7 @@
     <hr>
     <center>
     <form method="POST" action="{{route('plan.update',$plan->id)}}">
+       <input type='hidden' value='{{$plan->categoria_id}}' name='rec_idc'/><br>
         @csrf
         @method("put")
         <div class="form-group" {{ $errors->has('nombrePlan') ? 'has-error' : ''}}>
@@ -28,12 +29,13 @@
         </div>
         <div class="form-group" {{ $errors->has('fecha_termino') ? 'has-error' : ''}}>
             <!-- My calendar element -->
-            <h2>Fecha de término</h2>
-            <div id="my-calendar" class="jsCalendar" data-month-format="month YYYY" data-language="es"></div>
+            
 
             <!-- Outputs -->
-            <h4>Fecha escogida</h4>
-            <input id="my-input-a" name="fecha_termino" value="{{$plan->fecha_termino}}" required><br>
+         
+            <h4>Fecha de termino </h4>
+      <input type="date" id="fecha_termino" name="fecha_termino" value="{{$plan->fecha_termino}}" ><br>
+
             {!! $errors->first('fecha_termino','<span class="help-block" style="color:red;">:message</span>')!!}
           <div class="form-group">
             <label for="criterioHecho" style="font-size: 24px;" name="criterioHecho">Observaciones</label>

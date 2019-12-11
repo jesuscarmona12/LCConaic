@@ -3,7 +3,7 @@
 {{-- <!DOCTYPE html>
 <html lang="en">
 <head>
-   
+
     <title>Categorias</title>
 </head>
 <style>
@@ -22,10 +22,10 @@
         <table style="width:50%">
             <tr>
                 <th>Nombre</th>
-                <th>Descripción</th> 
+                <th>Descripción</th>
                 <th>Accion</th>
             </tr>
-            
+
             @foreach ($categorias as $categoria)
                 <tr>
                     <td>{{$categoria->nombre}}</td>
@@ -45,11 +45,11 @@
                 </tr>
             @endforeach
             </table>
-       
-    @else 
+
+    @else
         <p>No hay categorías registradas.</p>
     @endif
-    
+
 </body>
 </html> --}}
 <!DOCTYPE html>
@@ -70,7 +70,7 @@
               <div class="card-header border-0">
                 <h3 class="card-title">Lista de áreas</h3>
                 <div class="card-tools">
-                  
+
                 </div>
               </div>
               <div class="card-body table-responsive p-0">
@@ -80,28 +80,53 @@
                     <th>Nombre</th>
                     <th>Descripción</th>
                     <th>Acciones</th>
-                    
+
                   </tr>
                   </thead>
                   <tbody>
-                  
+
         @foreach ($categorias as $categoria)
 
                 <tr>
-                
-                    <td><a style="color:blue !important;" href="{{route('categorias.show',$categoria->id)}}">{{$categoria->nombre}}</a></td>
+
+                    <td>
+                                <?php
+                                if($categoria->academico_id == NULL){
+                                ?>
+                                    <h6 style="color:blue;">{{$categoria->nombre}}</h6>
+                                <?php
+                                }
+                                else{
+                                ?>
+                                    <a style="color:blue !important;" href="{{route('categorias.show',$categoria->id)}}">{{$categoria->nombre}}</a>
+                                    </a>
+                                <?php
+                                }
+                                ?>
+                    </td>
                 <td style="height:10px;"><p class="descripcion-texto">{{$categoria->descripcion}}</p></td>
                     <td style="width:150px">
                         <div class="d-flex">
 
                             <div class="col-lg-8 col-md-8 flex-fill">
                                 <center>
-                                <a type="button" style="color:white ;" class="btn btn-info btn-sm" href="{{route('categorias.show',$categoria->id)}}">
-                                          
-                                    Ver área
-                                </a>
+                                <?php
+                                if($categoria->academico_id == NULL){
+                                ?>
+                                    <h6 style="color:blue;">Sin asignar</h6>
+                                <?php
+                                }
+                                else{
+                                ?>
+                                    <a type="button" style="color:white ;" class="btn btn-info btn-sm" href="{{route('categorias.show',$categoria->id)}}">
+
+                                        Ver área
+                                    </a>
+                                <?php
+                                }
+                                ?>
                                 </center>
-                            </div> 
+                            </div>
 
                             <div class="col-lg-6 col-md-6 flex-fill">
                                 <form style="margin: 0px;" action="{{ route('categorias.destroy',$categoria->id) }}"  method="POST">
@@ -123,8 +148,8 @@
                                     Editar
                                 </a>
                                 </center>
-                            </div>   
-                                                       
+                            </div>
+
                         </div>
                     </td>
                 </tr>
@@ -134,21 +159,21 @@
 
         @endforeach
 
-        
+
                   </tbody>
                 </table>
 
-              </div>
-
-
             </div>
-     
-            <form action="/categorias/create">
-        {{-- <button type="submit" style="float:right; background-color:grey" class="btn pretty-btn"  type="submit" value="">Crear categoría</button> --}}
-        <input style="float:right; background-color:grey; color:white" class="btn pretty-btn"  type="submit" value="Crear categoría" />
-    </form><br>  
+            <br>
+            <div class="box-footer">
+                <form action="/categorias/create">
+                    {{-- <button type="submit" style="float:right; background-color:grey" class="btn pretty-btn"  type="submit" value="">Crear área</button> --}}
+                    <input style="float:right; background-color:grey; color:white" class="btn pretty-btn"  type="submit" value="Crear área" />
+                </form>
+            </div>
+            <br>
+            </div>
+</div>
 
-</div> 
- 
 
 @stop

@@ -40,8 +40,8 @@ class ControladorAcademicos extends Controller
         $credentials = $request->validate([
             'nombre' => 'required|max:30',
             'email'=> 'required|email|unique:academicos,email',
-            'password' => 'required|min:3|confirmed',
-            'categoria' => 'required',
+            'password' => 'required|min:3|confirmed'/*,
+            'categoria' => 'required',*/
         ]);
 
         if($credentials){
@@ -51,6 +51,7 @@ class ControladorAcademicos extends Controller
             $academico->remember_token = "_token";
             $academico->save();
 
+            /*
             if($request->categoria != 'NULL'){
                 $categoria = Categoria::findOrFail($request->categoria);
                 //$categoria->academico_id = $academico->id;
@@ -58,7 +59,7 @@ class ControladorAcademicos extends Controller
                 //$categoria->save();
             }
             //dd($categoria);
-            
+            */
             return redirect()->route('academicos.index');
         }
 
@@ -95,7 +96,7 @@ class ControladorAcademicos extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Academico $academico){
-        
+
         $credentials = $request->validate([
             'nombre' => 'required|max:30',
             'email' => 'required|email',
@@ -103,7 +104,7 @@ class ControladorAcademicos extends Controller
             'categoria' => 'required',
         ]);
 
-        
+
         if($credentials){
             $academico->nombre = $request->input('nombre');
             if($academico->email != $request->input('email')) $academico->email = $request-> input('email');
@@ -112,26 +113,26 @@ class ControladorAcademicos extends Controller
             $academico->save();
 
             if($request->categoria == "NULL") return redirect()->route('academicos.index');
-            
+
             $categoria_antigua = Categoria::where('academico_id', $academico->id)->get()->last();
             if(!$categoria_antigua){
                 $categoria = Categoria::findOrFail($request->categoria);
 
                 $academico->categoria()->save($categoria);
-                
+
                 return redirect()->route('academicos.index');
             }
             $categoria_antigua = Categoria::findOrFail($categoria_antigua)->last();
-            
+
             $categoria_antigua->academico_id = NULL;
             $categoria_antigua->save();
-            
+
             $categoria = Categoria::findOrFail($request->categoria);
 
             //$academico->categoria()->dissociate();
             $academico->categoria()->save($categoria);
-            
-            
+
+
             return redirect()->route('academicos.index');
         }
 
@@ -171,7 +172,7 @@ class ControladorAcademicos extends Controller
             'email' => 'required|email',
             'password' => 'required|min:3|confirmed'
         ]);
-        
+
         if($credentials){
             $academico->nombre = $request->input('nombre');
             if($academico->email != $request->input('email')) $academico->email = $request-> input('email');

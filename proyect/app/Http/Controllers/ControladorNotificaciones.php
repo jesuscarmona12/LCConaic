@@ -22,11 +22,11 @@ class ControladorNotificaciones extends Controller
         $this->middleware('auth');
         $this->middleware('admin',['except'=>'index' ]);
     }
-    
+
     /**
      * Funcion que se encarga de desplegar 5 categorias y despues paginarlas en la vista listaCategorias.
      * @return vista con todas las categorias.
-     * 
+     *
      */
     public function index(){
         $categorias = Categoria::all();
@@ -34,7 +34,7 @@ class ControladorNotificaciones extends Controller
         $academico = Academico::findOrFail($academico_id);
 
 
-        $notif = DB::table('notificaciones')->select('nombre','descripcion')->get();
+        $notif = DB::table('notificaciones')->select('nombre','descripcion','fecha')->get();
         //$categoria_academico = Categoria::findOrFail($academico_id);
         //dd($categoria_academico);
         //$categoria_academico = Categoria::where('academico_id', $academico_id)->get();
@@ -50,8 +50,8 @@ class ControladorNotificaciones extends Controller
      */
     public function create()
     {
-          
-        
+
+
         return view('notificaciones.crearNotificacion');
     }
 
@@ -59,9 +59,9 @@ class ControladorNotificaciones extends Controller
        public function lista()
     {
         //con la funcion with() encuentro las categorias relacionadas con la tabla academico.
-        
+
         $notif = Notificacion::all();
-     
+
         //regreso la vista con la variable como arreglo
         return view('notificaciones.listaNotificaciones',compact('notif'));
     }
@@ -69,9 +69,9 @@ class ControladorNotificaciones extends Controller
 
     /**
      * Funcion que se encarga de crear el objeto de tipo categoria, valida que los datos ingresados por el usuario
-     * sean los correctos,si no, regresa un error a la vista, si la validacion pasa  llena los atributos de ese objeto 
+     * sean los correctos,si no, regresa un error a la vista, si la validacion pasa  llena los atributos de ese objeto
      * con los datos que ingresa el usuario y despues lo guarda en la base de datos
-     * 
+     *
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -80,31 +80,31 @@ class ControladorNotificaciones extends Controller
     {
 
         $categoria = new Notificacion();
-       
+
         $credentials=$this->validate($request, array(
             'nombreCategoria' => 'required|min:5|max:100|regex:/^[a-zA-Z][\s\S]*/'.$categoria->id,
-            'descripcionCategoria'=> 'required|min:20|regex:/^[a-zA-Z][\s\S]*/', 
+            'descripcionCategoria'=> 'required|min:20|regex:/^[a-zA-Z][\s\S]*/',
         ));
-        
-        
+
+
         if($credentials){
-            
+
             $categoria->nombre= $request->input('nombreCategoria');
-           
+            $categoria->fecha= $request->input('fecha');
             $categoria->descripcion= $request->input('descripcionCategoria');
             $categoria->save();
             return redirect()->route('notificacion.reporte');
 
             //condiciona que si se envia el formulario sin academicos pongo el atributo academico_id con el valor de null
-            
-            
+
+
         }else{
             //Si es falso, se regresa a la misma pagina de registro con los errores que hubo.
             return back()->withInput(request(['nombreCategoria'=>'hehexd']));
         }
-        
 
-        
+
+
     }
 
     /**
@@ -126,7 +126,7 @@ class ControladorNotificaciones extends Controller
                 foreach($recomendacion->planes as $plan)
                     array_push($planes, $plan);
             }
-        
+
         return view('categorias.verCategoriaSeleccionada', compact('categoria','recomendaciones', 'planes'));
     }
 
@@ -138,17 +138,15 @@ class ControladorNotificaciones extends Controller
      */
     public function edit($id)
     {
-        $categoria= Categoria::findOrFail($id);
-               
+
+
 
          $notif = Notificacion::findOrFail($id);
-        //checa si la categoria tiene un academico o no
-        
-   
-             //academico de la categoria a editar
-             // $academicos= Academico::all();
+
+
+
             return view('notificaciones.editar',compact('notif'));
-        
+
     }
 
     /**
@@ -160,21 +158,22 @@ class ControladorNotificaciones extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+
         $credentials=$this->validate($request, array(
             'nombreCategoria' => 'required|min:5|max:100|regex:/^[a-zA-Z][\s\S]*/',
             'descripcionCategoria'=> 'required|min:10|regex:/^[a-zA-Z][\s\S]*/',
-            
+
         ));
         // dd($request->academicoID);
         if($credentials){
             $categoria = Notificacion::findOrFail($id);
             $categoria ->nombre= $request->input('nombreCategoria');
+
             $categoria ->descripcion= $request->input('descripcionCategoria');
              $categoria->save();
              return redirect()->route('notificacion.reporte');
             //condiciona que si se envia el formulario sin academicos pongo el atributo academico_id con el valor de null
-            
+
         }else{
             //Si es falso, se regresa a la misma pagina de registro con los errores que hubo.
             return back()->withInput(request(['nombreCategoria']));

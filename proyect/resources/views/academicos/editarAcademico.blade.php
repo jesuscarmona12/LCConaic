@@ -45,13 +45,13 @@
                             @if (!$academico->categoria)
                                 <option value="NULL">Sin asignar aún</option>
                             @else
-                                <option value="{{$academico->categoria->id}}">{{$academico->categoria->nombre}}</option>
+                                <option value="NULL">Solo se visualizan las áreas que le corresponde.</option>
+                                @foreach ($categorias as $categoria)
+                                    @if ($categoria->academico_id == $academico->id)
+                                        <option value="{{$categoria->id}}">{{$categoria->nombre}}</option>
+                                    @endif
+                                @endforeach
                             @endif
-                            @foreach ($categorias as $categoria)
-                                @if ($categoria->academico_id == null)
-                                    <option value="{{$categoria->id}}">{{$categoria->nombre}}</option>
-                                @endif
-                            @endforeach
                         </select>
                         {!! $errors->first('categoria','<span class="help-block" style="color:red;">:message</span>')!!}
                     </div>

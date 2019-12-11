@@ -15,21 +15,32 @@ class ControladorCategorias extends Controller
 {
     public function __construct(){
         $this->middleware('auth');
-        
+         $this->middleware('admin', ['except' => ['listas','show','']]);
+
     }
-    
+
     /**
      * Funcion que se encarga de desplegar 5 categorias y despues paginarlas en la vista listaCategorias.
      * @return vista con todas las categorias.
-     * 
+     *
      */
     public function index()
     {
         //con la funcion with() encuentro las categorias relacionadas con la tabla academico.
-        $categorias = Categoria::with('academico')->paginate(20); 
+        $categorias = Categoria::with('academico')->paginate(20);
         //regreso la vista con la variable como arreglo
         return view('categorias.listaCategorias')->with(['categorias'=>$categorias]);
     }
+
+      public function listas()
+    {
+        //con la funcion with() encuentro las categorias relacionadas con la tabla academico.
+        $categorias = Categoria::with('academico')->paginate(20);
+        //regreso la vista con la variable como arreglo
+        return view('categorias.listaCategorias2')->with(['categorias'=>$categorias]);
+    }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -41,9 +52,9 @@ class ControladorCategorias extends Controller
         $academicos= Academico::all();
         // dd($academicos);
         // $academicoConCategoria = Academico::has('categoria')->get();
-        $academicoSinCategoria = Academico::doesnthave('categoria')->get();
-        
-        return view('categorias.crearCategoria',compact('academicoSinCategoria'));
+        //$academicoSinCategoria = Academico::doesnthave('categoria')->get();
+
+        return view('categorias.crearCategoria',compact('academicos'));
     }
      public function lista()
     {
@@ -51,15 +62,16 @@ class ControladorCategorias extends Controller
         // dd($academicos);
         // $academicoConCategoria = Academico::has('categoria')->get();
         $academicoSinCategoria = Academico::doesnthave('categoria')->get();
-        
+
         return view('categorias.crearCategoria',compact('academicoSinCategoria'));
     }
 
+
     /**
      * Funcion que se encarga de crear el objeto de tipo categoria, valida que los datos ingresados por el usuario
-     * sean los correctos,si no, regresa un error a la vista, si la validacion pasa  llena los atributos de ese objeto 
+     * sean los correctos,si no, regresa un error a la vista, si la validacion pasa  llena los atributos de ese objeto
      * con los datos que ingresa el usuario y despues lo guarda en la base de datos
-     * 
+     *
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -69,12 +81,12 @@ class ControladorCategorias extends Controller
         $categoria = new Categoria();
         $credentials=$this->validate($request, array(
             'nombreCategoria' => 'required|min:5|max:100|regex:/^[a-zA-Z][\s\S]*/'.$categoria->id,
-            'descripcionCategoria'=> 'required|min:20|regex:/^[a-zA-Z][\s\S]*/', 
+            'descripcionCategoria'=> 'required|min:20|regex:/^[a-zA-Z][\s\S]*/',
         ));
-        
-        
+
+
         if($credentials){
-            
+
             $categoria ->nombre= $request->input('nombreCategoria');
             $categoria ->descripcion= $request->input('descripcionCategoria');
 
@@ -89,14 +101,14 @@ class ControladorCategorias extends Controller
                 $categoria->save();
                 return redirect()->route('categorias.index');
             }
-            
+
         }else{
             //Si es falso, se regresa a la misma pagina de registro con los errores que hubo.
             return back()->withInput(request(['nombreCategoria'=>'hehexd']));
         }
-        
 
-        
+
+
     }
 
     /**
@@ -117,7 +129,7 @@ class ControladorCategorias extends Controller
                 foreach($recomendacion->planes as $plan)
                     array_push($planes, $plan);
             }
-        
+
         return view('categorias.verCategoriaSeleccionada', compact('categoria','recomendaciones', 'planes'));
     }
 
@@ -130,15 +142,15 @@ class ControladorCategorias extends Controller
     public function edit($id)
     {
         $categoria= Categoria::findOrFail($id);
-        $academicoSinCategoria = Academico::doesnthave('categoria')->get();
+        $academicos = Academico::all();
         //checa si la categoria tiene un academico o no
         if($categoria->academico == null){
-            return view('categorias.editar',compact('categoria','academicoSinCategoria'));
+            return view('categorias.editar',compact('categoria','academicos'));
         }else {
             $academicoID= $categoria->academico->id;
             $academicoAsignado= Academico::findOrFail($academicoID); //academico de la categoria a editar
              // $academicos= Academico::all();
-            return view('categorias.editar',compact('categoria','academicoSinCategoria','academicoAsignado'));
+            return view('categorias.editar',compact('categoria','academicos','academicoAsignado'));
         }
     }
 
@@ -151,11 +163,11 @@ class ControladorCategorias extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+
         $credentials=$this->validate($request, array(
             'nombreCategoria' => 'required|min:5|max:100|regex:/^[a-zA-Z][\s\S]*/',
             'descripcionCategoria'=> 'required|min:10|regex:/^[a-zA-Z][\s\S]*/',
-            
+
         ));
         // dd($request->academicoID);
         if($credentials){

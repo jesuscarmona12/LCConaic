@@ -6,10 +6,10 @@
               <div class="card-header border-0">
                 <h3 class="card-title">Lista de usuarios</h3>
                 <div class="card-tools">
-                  
+
                 </div>
               </div>
-              
+
               <div class="card-body table-responsive p-0">
                 <table class="table table-striped table-valign-middle">
                   <thead>
@@ -17,13 +17,13 @@
                     <th>Nombre</th>
                     <th>Email</th>
                     <th>Acciones</th>
-                   
+
                   </tr>
                   </thead>
                   <tbody>
                      @foreach ($academicos as $academico)
                 <tr>
-                
+
                     <td>{{$academico->nombre}}</td>
                     <td>{{$academico->email}}</td>
                     <td style="width:150px">
@@ -47,17 +47,17 @@
                                     Editar
                                 </a>
                                 </center>
-                            </div>                            
+                            </div>
                         </div>
                     </td>
                 </tr>
            @endforeach
-                  
-        
+
+
                   </tbody>
                 </table>
 
-                
+
               </div>
 
 
@@ -113,7 +113,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        {{-- <div class="form-group row">
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Categorías') }}</label>
                             <div class="col-md-6">
                                 <select class="form-control" name="categoria" id="card_type" required>
@@ -125,8 +125,8 @@
                                 </select>
                                 {!! $errors->first('categoria','<span class="help-block" style="color:red;">:message</span>')!!}
                             </div>
-                        </div>
-                        
+                        </div> --}}
+
 
                         <div class="form-group row mb-4">
                             <div class="col-md-6 offset-md-4">
